@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import Logo from "./Logo";
-import "./styles/Login.css";
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import Logo from './Logo';
+import './styles/Login.css';
 
-const Login = () => {
+const Login = ({ handleLogin }) => {
   const [data, setData] = useState({
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   });
 
   const handleChange = (e) => {
@@ -17,14 +17,19 @@ const Login = () => {
     }));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin(data);
+  };
+
   return (
     <div className="login">
-      <Logo title={"CryptoDucks"} />
+      <Logo title={'CryptoDucks'} />
       <p className="login__welcome">
         Esta aplicación contiene información confidencial. Por favor inicia
         sesión o regístrate para acceder a CryptoDucks.
       </p>
-      <form className="login__form">
+      <form className="login__form" onSubmit={handleSubmit}>
         <label htmlFor="username">Username:</label>
         <input
           id="username"

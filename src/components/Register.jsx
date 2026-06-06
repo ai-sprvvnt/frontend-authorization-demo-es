@@ -1,14 +1,14 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import Logo from "./Logo";
-import "./styles/Register.css";
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import Logo from './Logo';
+import './styles/Register.css';
 
-const Register = () => {
+const Register = ({ handleRegistration }) => {
   const [data, setData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
   });
 
   const handleChange = (e) => {
@@ -19,16 +19,23 @@ const Register = () => {
     }));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleRegistration(data);
+  };
+
   return (
     <div className="register">
-      <Logo title={"CryptoDucks"} />
+      <Logo title={'CryptoDucks'} />
       <p className="register__welcome">Regístrate</p>
-      <form className="register__form">
+      <form className="register__form" onSubmit={handleSubmit}>
         <label htmlFor="username">Username:</label>
         <input
           id="username"
           name="username"
           type="text"
+          required
+          minLength={6}
           value={data.username}
           onChange={handleChange}
         />
@@ -37,6 +44,7 @@ const Register = () => {
           id="email"
           name="email"
           type="email"
+          required
           value={data.email}
           onChange={handleChange}
         />
@@ -45,6 +53,7 @@ const Register = () => {
           id="password"
           name="password"
           type="password"
+          required
           value={data.password}
           onChange={handleChange}
         />
@@ -53,6 +62,7 @@ const Register = () => {
           id="confirmPassword"
           name="confirmPassword"
           type="password"
+          required
           value={data.confirmPassword}
           onChange={handleChange}
         />
@@ -64,7 +74,7 @@ const Register = () => {
       </form>
       <div className="register__signin">
         <p>¿Ya eres miembro?</p>
-        <Link to="login" className="register__login-link">
+        <Link to="/login" className="register__login-link">
           Inicia sesión aquí
         </Link>
       </div>
